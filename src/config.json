@@ -1,0 +1,16 @@
+{
+  "bot": {
+    "token": "",
+    "server": "None",
+    "author": "000000",      
+    "version": "0.0.1",
+    "changelog": ""
+  },
+  "emoji": {
+    "success": "<a:success:000000>",
+    "failed": "<a:failed:000000>"
+  },
+  "misc": {
+    "embed_color": "#6590cd"
+  }
+}
