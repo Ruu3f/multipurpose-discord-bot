@@ -29,7 +29,7 @@ class Text(commands.Cog):
             .decode()
             .replace("=", "")
         )
-        await ctx.respond(encoded_text)
+        await ctx.respond(encoded_text, ephemeral=True)
 
     @text.command(name="decode", description="Enter your encoded code to decode it.")
     async def decode(
