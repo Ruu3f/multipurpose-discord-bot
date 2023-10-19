@@ -206,7 +206,7 @@ class Fun(commands.Cog):
         embed.add_field(name="Question:", value=question, inline=False)
         embed.add_field(name="8Ball says:", value=choice, inline=False)
         embed.set_footer(
-            text="Note: This is 100% NOT accurate, you should not follow adviceses from it."
+            text="Don't take its advice into consideration."
         )
         await ctx.respond(embed=embed)
 
