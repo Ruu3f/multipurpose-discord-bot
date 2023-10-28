@@ -9,6 +9,7 @@ success_emoji = data["emoji"]["success"]
 failed_emoji = data["emoji"]["failed"]
 bot_server = data["bot"]["server"]
 bot_version = data["bot"]["version"]
+bot_author = data["bot"]["author"]
 
 
 class System(commands.Cog):
@@ -86,7 +87,7 @@ class System(commands.Cog):
     @bot.command(name="stats", description="Show's the bot's current stats.")
     async def stats(self, ctx):
         embed = discord.Embed(title="Bot Stats", color=int(embed_color[1:], 16))
-        embed.add_field(name="Owner:", value="@ruu3f")
+        embed.add_field(name="Owner:", value=self.bot.get_user(int(bot_author)).mention)
         embed.add_field(name="Bot Version:", value=bot_version)
         embed.add_field(name="Shards:", value=self.bot.shard_count)
         embed.add_field(name="Servers:", value=len(self.bot.guilds))
@@ -98,37 +99,6 @@ class System(commands.Cog):
             name="Members:", value=sum(len(guild.members) for guild in self.bot.guilds)
         )
         await ctx.respond(embed=embed)
-
-    @bot.command(name="report", description="Report a bug, glitch or error.")
-    async def feedback(
-        self,
-        ctx,
-        type: discord.commands.Option(
-            str, "Tell us if its a bug, glitch or error.", required=True
-        ),
-        *,
-        info: discord.commands.Option(
-            str, "The information about the bug, glitch or error.", required=True
-        ),
-    ):
-        if type not in ["bug", "glitch", "error"]:
-            await ctx.respond(
-                f"{failed_emoji} You need to provide if its a type of bug, glitch or error.",
-                ephemeral=True,
-            )
-        embed = discord.Embed(
-            title="Report Info:",
-            description=f"```{info}```",
-            color=int(embed_color[1:], 16),
-        )
-        if ctx.author.avatar:
-            embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
-        else:
-            embed.set_author(name=ctx.author.name)
-        embed.set_footer(text=f"Type: {type}")
-        channel = self.bot.get_channel(1124085634617847868)
-        await channel.send(embed=embed)
-        await ctx.respond(f"{success_emoji} Report sent.", ephemeral=True)
 
 
 def setup(bot):
