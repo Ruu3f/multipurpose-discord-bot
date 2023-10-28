@@ -233,7 +233,7 @@ class Automatic(commands.Cog):
                 else:
                     if message.channel.id == data[1]:
                         params = {
-                            "bid": "172599",
+                            "bid": "",
                             "key": "",
                             "uid": message.author.id,
                             "msg": message.content,
@@ -285,7 +285,7 @@ class Automatic(commands.Cog):
         async for entry in message.guild.audit_logs(
             limit=1, action=discord.AuditLogAction.message_delete
         ):
-            if entry.user == message.author and (
+            if (
                 datetime.datetime.now(datetime.timezone.utc) - message.created_at
             ) < datetime.timedelta(minutes=5):
                 embed = discord.Embed(
