@@ -58,10 +58,6 @@ class Bot(commands.Bot):
     async def on_message(self, msg):
         if msg.content == f"<@{self.user.id}>":
             await msg.add_reaction("👀")
-        if msg.content.startswith("achoo"):
-            await msg.channel.send(
-                f"{msg.author.name}, Here have a tissue! <:tissuebox:000>"
-            )
 
     async def on_application_command_error(self, ctx, err):
         embed = discord.Embed(
@@ -76,35 +72,6 @@ class Bot(commands.Bot):
             )
         )
         await ctx.respond(embed=embed, view=view, ephemeral=True)
-
-    async def on_application_command_completion(self, ctx):
-        if ctx.guild.id not in self.guild_command_usage:
-            self.guild_command_usage.append(ctx.guild.id)
-        else:
-            if self.guild_command_usage.count(ctx.guild.id) == 5:
-                self.guild_command_usage = [
-                    i
-                    for i, j in enumerate(self.guild_command_usage)
-                    if j != ctx.guild.id
-                ]
-                embed = discord.Embed(
-                    description="Enjoying the bot? Support it by voting: https://top.gg/bot/000000/vote",
-                    color=int(embed_color[1:], 16),
-                )
-                button1 = discord.ui.Button(
-                    label="Support Server",
-                    url=bot_server,
-                )
-                button2 = discord.ui.Button(
-                    label="Invite Me",
-                    url="None",
-                )
-                view = discord.ui.View()
-                view.add_item(button1)
-                view.add_item(button2)
-                await ctx.respond(embed=embed, view=view, ephemeral=True)
-            self.guild_command_usage.append(ctx.guild.id)
-        await self.process_application_commands(ctx.interaction)
 
 
 if __name__ == "__main__":

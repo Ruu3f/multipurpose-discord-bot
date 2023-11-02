@@ -21,15 +21,7 @@ class Automatic(commands.Cog):
     chatbot = discord.commands.SlashCommandGroup("chatbot")
 
     @chatbot.command(name="setup", description="Setup the chatbot.")
-    @commands.has_permissions(manage_channels=True)
-    async def chatbot_setup(
-        self,
-        ctx,
-        channel: discord.commands.Option(
-            discord.TextChannel,
-            "The chatbot will start replying to messages in this channel.",
-        ),
-    ) -> None:
+    async def chatbot_setup(self, ctx, channel):
         await ctx.defer()
         async with self.bot.db.cursor() as cursor:
             await cursor.execute(
@@ -65,8 +57,7 @@ class Automatic(commands.Cog):
                 )
 
     @chatbot.command(name="reset", description="Reset the chatbot.")
-    @commands.has_permissions(manage_channels=True)
-    async def chatbot_reset(self, ctx) -> None:
+    async def chatbot_reset(self, ctx):
         await ctx.defer()
         async with self.bot.db.cursor() as cursor:
             await cursor.execute(
@@ -95,14 +86,7 @@ class Automatic(commands.Cog):
     automemes = discord.commands.SlashCommandGroup("automemes")
 
     @automemes.command(name="setup", description="Setup automemes.")
-    @commands.has_permissions(manage_channels=True)
-    async def automemes_setup(
-        self,
-        ctx,
-        channel: discord.commands.Option(
-            discord.TextChannel, "Channel where the bot should start sending automemes."
-        ),
-    ) -> None:
+    async def automemes_setup(self, ctx, channel):
         await ctx.defer()
         async with self.bot.db.cursor() as cursor:
             await cursor.execute(
@@ -130,8 +114,7 @@ class Automatic(commands.Cog):
                 )
 
     @automemes.command(name="reset", description="Reset automemes.")
-    @commands.has_permissions(manage_channels=True)
-    async def automemes_reset(self, ctx) -> None:
+    async def automemes_reset(self, ctx):
         await ctx.defer()
         async with self.bot.db.cursor() as cursor:
             await cursor.execute(
@@ -159,8 +142,6 @@ class Automatic(commands.Cog):
     @automod.command(
         name="capsfilter", description="Toggle caps filter module for your server."
     )
-    @commands.has_permissions(manage_guild=True)
-    @commands.bot_has_permissions(manage_messages=True)
     async def capsfilter(self, ctx):
         guild_id = ctx.guild.id
         self.cf_enabled[guild_id] = not self.cf_enabled.get(guild_id, False)
@@ -171,8 +152,6 @@ class Automatic(commands.Cog):
     @automod.command(
         name="linkfilter", description="Toggle link filter module for your server."
     )
-    @commands.has_permissions(manage_guild=True)
-    @commands.bot_has_permissions(manage_messages=True)
     async def linkfilter(self, ctx):
         guild_id = ctx.guild.id
         self.lf_enabled[guild_id] = not self.lf_enabled.get(guild_id, False)
@@ -183,8 +162,6 @@ class Automatic(commands.Cog):
     @automod.command(
         name="swearfilter", description="Toggle swear filter module for your server."
     )
-    @commands.has_permissions(manage_guild=True)
-    @commands.bot_has_permissions(manage_messages=True)
     async def swearfilter(self, ctx):
         guild_id = ctx.guild.id
         self.sf_enabled[guild_id] = not self.sf_enabled.get(guild_id, False)
@@ -192,8 +169,6 @@ class Automatic(commands.Cog):
             f"{success_emoji} Swear filter module {'enabled' if self.sf_enabled[guild_id] else 'disabled'}."
         )
 
-    @commands.has_permissions(manage_guild=True)
-    @commands.bot_has_permissions(view_audit_log=True)
     @automod.command(
         name="antighostping", description="Toggle antighostping module for your server."
     )

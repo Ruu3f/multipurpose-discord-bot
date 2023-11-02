@@ -144,9 +144,7 @@ class Utility(commands.Cog):
             description=f"Nuked by {ctx.author.mention}",
             color=int(embed_color[1:], 16),
         )
-        embed.set_image(
-            url="https://media.giphy.com/media/hvGKQL8lasDvIlWRBC/giphy.gif"
-        )
+
         await new_channel.send(embed=embed)
 
     @util.command(
@@ -159,10 +157,9 @@ class Utility(commands.Cog):
             discord.Emoji, "The field to put the emoji in.", required=True
         ),
     ):
-        emoji_url = str(emoji.url)
         embed = discord.Embed(
             title=f"{emoji} Emoji URL",
-            description=emoji_url,
+            description=str(emoji.url),
             color=int(embed_color[1:], 16),
         )
         await ctx.respond(embed=embed)

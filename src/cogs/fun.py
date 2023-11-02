@@ -28,7 +28,7 @@ class QuizView(discord.ui.View):
                 )
             self.add_item(button)
 
-    async def interaction_check(self, interaction: discord.Interaction) -> bool:
+    async def interaction_check(self, interaction: discord.Interaction):
         selected_option = interaction.data["custom_id"]
         correct_button = next(button for button in self.children if button.correct)
         correct_option = correct_button.custom_id
@@ -205,9 +205,7 @@ class Fun(commands.Cog):
             embed.set_author(name=ctx.author.name)
         embed.add_field(name="Question:", value=question, inline=False)
         embed.add_field(name="8Ball says:", value=choice, inline=False)
-        embed.set_footer(
-            text="Don't take its advice into consideration."
-        )
+        embed.set_footer(text="Don't take its advice into consideration.")
         await ctx.respond(embed=embed)
 
     @fun.command(name="dadjoke", description="Get a random dad joke.")
