@@ -205,7 +205,6 @@ class Fun(commands.Cog):
             embed.set_author(name=ctx.author.name)
         embed.add_field(name="Question:", value=question, inline=False)
         embed.add_field(name="8Ball says:", value=choice, inline=False)
-        embed.set_footer(text="Don't take its advice into consideration.")
         await ctx.respond(embed=embed)
 
     @fun.command(name="dadjoke", description="Get a random dad joke.")

@@ -56,31 +56,6 @@ class Utility(commands.Cog):
         )
         await ctx.send(embed=embed, delete_after=5)
 
-    @util.command(name="clear", description="Clear messages.")
-    @commands.has_permissions(manage_messages=True)
-    @commands.bot_has_permissions(manage_messages=True)
-    async def clear(
-        self,
-        ctx,
-        amount: discord.commands.Option(
-            int, "Put how many message you want to clear.", required=True
-        ),
-    ):
-        await ctx.defer()
-        if amount > 1000:
-            await ctx.respond(
-                f"{failed_emoji} You cannot clear more than 1000 messages at a time.",
-                ephemeral=True,
-            )
-            return
-        deleted = await ctx.channel.purge(limit=amount)
-        embed = discord.Embed(
-            title=f"{success_emoji} Messages cleared:",
-            description=f"{len(deleted)} messages have been cleared.",
-            color=int(embed_color[1:], 16),
-        )
-        await ctx.send(embed=embed, delete_after=5)
-
     @util.command(
         name="slowmode", description="Sets the slowmode for the current channel."
     )
