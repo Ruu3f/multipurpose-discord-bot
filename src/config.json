@@ -1,10 +1,7 @@
 {
   "bot": {
     "token": "",
-    "server": "None",
-    "author": "000000",      
-    "version": "0.0.1",
-    "changelog": ""
+    "server": "https://discord.gg/"
   },
   "emoji": {
     "success": "<a:success:000000>",

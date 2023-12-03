@@ -1,7 +1,11 @@
-import json, discord, aiohttp
+import json
+import time
+import psutil
+import aiohttp
+import discord
 from discord.ext import commands
 
-with open("./config.json") as f:
+with open("./config.json", "r") as f:
     data = json.load(f)
 
 embed_color = data["misc"]["embed_color"]
@@ -155,6 +159,28 @@ class Info(commands.Cog):
             await ctx.respond(embed=embed, view=view)
         else:
             await ctx.respond("This user does not have a banner.")
+
+    @info.command(name="botstats", description="Show's the bot's current stats.")
+    async def stats(self, ctx):
+        embed = discord.Embed(title="Bot Stats", color=int(embed_color[1:], 16))
+        embed.add_field(name="Latency:", value=f"{self.bot.latency*1000:.2f}ms")
+        process = psutil.Process()
+        with process.oneshot():
+            uptime = int(time.time() - process.create_time())
+            embed.add_field(
+                name="Uptime:",
+                value=f"{int(uptime // 86400)}d, {int(uptime // 3600 % 24)}h, {int(uptime // 60 % 60)}m, {int(uptime % 60)}s",
+            )
+        embed.add_field(name="Shards:", value=self.bot.shard_count)
+        embed.add_field(name="Servers:", value=len(self.bot.guilds))
+        embed.add_field(
+            name="Channels:",
+            value=sum(len(guild.channels) for guild in self.bot.guilds),
+        )
+        embed.add_field(
+            name="Members:", value=sum(len(guild.members) for guild in self.bot.guilds)
+        )
+        await ctx.respond(embed=embed)
 
 
 def setup(bot):

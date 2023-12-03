@@ -1,7 +1,12 @@
-import re, json, aiohttp, random, discord, datetime
+import re
+import json
+import random
+import aiohttp
+import discord
+import datetime
 from discord.ext import commands, tasks
 
-with open("./config.json") as f:
+with open("./config.json", "r") as f:
     data = json.load(f)
 
 embed_color = data["misc"]["embed_color"]

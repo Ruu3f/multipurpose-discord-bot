@@ -1,4 +1,6 @@
-import discord, base64, codecs
+import base64
+import codecs
+import discord
 from discord.ext import commands
 
 
@@ -19,7 +21,7 @@ class Text(commands.Cog):
 
     @text.command(
         name="encode",
-        description="Enter your text to encode it. The encoded text can be decoded using the `/text decode` command.",
+        description="Enter your text to encode it.",
     )
     async def encode(
         self, ctx, *, text: discord.commands.Option(str, "Your text.", required=True)
@@ -31,7 +33,7 @@ class Text(commands.Cog):
         )
         await ctx.respond(encoded_text, ephemeral=True)
 
-    @text.command(name="decode", description="Enter your encoded code to decode it.")
+    @text.command(name="decode", description="Enter your encoded text to decode it.")
     async def decode(
         self,
         ctx,

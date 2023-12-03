@@ -1,7 +1,8 @@
-import json, discord
+import json
+import discord
 from discord.ext import commands
 
-with open("./config.json") as f:
+with open("./config.json", "r") as f:
     data = json.load(f)
 
 embed_color = data["misc"]["embed_color"]

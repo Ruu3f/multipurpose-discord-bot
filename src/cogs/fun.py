@@ -1,7 +1,12 @@
-import json, html, string, random, aiohttp, discord
+import html
+import json
+import string
+import random
+import aiohttp
+import discord
 from discord.ext import commands
 
-with open("./config.json") as f:
+with open("./config.json", "r") as f:
     data = json.load(f)
 
 embed_color = data["misc"]["embed_color"]
@@ -86,15 +91,6 @@ class Fun(commands.Cog):
         )
         await ctx.respond(embed=embed)
 
-    @fun.command(name="dice", description="Roll a dice!")
-    async def dice(self, ctx):
-        embed = discord.Embed(
-            title="Dice!",
-            description=f"You rolled a **{random.randint(1, 6)}**",
-            color=int(embed_color[1:], 16),
-        )
-        await ctx.respond(embed=embed)
-
     @fun.command(
         name="slots",
         description="Play a game of slots; it's random sometimes you can win and sometimes lose.",
@@ -147,7 +143,7 @@ class Fun(commands.Cog):
         if not user:
             user = ctx.author
         embed = discord.Embed(
-            description=f"{user.mention} has {random.randint(20, 200)} IQ 🧠",
+            description=f"{user.mention} has {random.randint(20, 240)} IQ 🧠",
             color=int(embed_color[1:], 16),
         )
         await ctx.respond(embed=embed)
